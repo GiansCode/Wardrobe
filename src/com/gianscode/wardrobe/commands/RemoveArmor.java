@@ -23,7 +23,7 @@ public class RemoveArmor implements CommandExecutor {
 				return true;
 			}
 
-			if (p.getInventory().getArmorContents() == null) {
+			if (p.getInventory().getHelmet() == null && p.getInventory().getChestplate() == null && p.getInventory().getLeggings() == null && p.getInventory().getBoots() == null) {
 				p.sendMessage(ChatColor.RED + "You are not wearing any armor!");
 			} else {
 				p.getInventory().setArmorContents(null);

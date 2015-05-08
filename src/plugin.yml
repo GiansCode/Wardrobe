@@ -1,0 +1,20 @@
+name: Wardrobe
+version: 1.0.0
+author: GiansCode
+main: com.gianscode.wardrobe.Main
+description: Change how you look ingame
+
+commands:
+    openmenu:
+        usage: /<command>
+        aliases: [om, open, wardrobe, select]
+        description: Opens the GUI selector
+    removearmor:
+        usage: /<command>
+        aliases: [ra, cleararmor, removearmour, cleararmour, ca]
+        description: Removes all the armor you have on
+    
+permissions:
+    wardrobe.use:
+        default: op
+        description: Use the wardrobe

@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.ItemStack;
 
 import com.gianscode.wardrobe.Main;
@@ -20,7 +21,71 @@ public class InventoryClick implements Listener {
 		if (he instanceof Player) {
 			Player p = (Player) he;
 
-			if (e.getInventory().getName() == Main.getInventory().getName()) {
+			if (e.getInventory().getName() == Main.selectorInventory().getName()) {
+				e.setCancelled(true);
+
+				ItemStack clicked = e.getCurrentItem();
+
+				if (clicked == null) {
+					return;
+				}
+				
+				if (clicked.getType() == Material.AIR) {
+					return;
+				}
+				
+				if (clicked.getItemMeta().getDisplayName().equals(ChatColor.DARK_PURPLE + "Remove Armor")) {
+					if (p.getInventory().getHelmet() == null && p.getInventory().getChestplate() == null && p.getInventory().getLeggings() == null && p.getInventory().getBoots() == null) {
+						p.sendMessage(ChatColor.RED + "You are not wearing any armor!");
+						p.closeInventory();
+					} else {
+						p.getInventory().setArmorContents(null);
+						p.sendMessage(ChatColor.GREEN + "Successfully removed all your armor!");
+						p.closeInventory();
+						return;
+					}
+					return;
+				}
+
+				if (clicked.getItemMeta().getDisplayName().equals(ChatColor.DARK_PURPLE + "Select Armor")) {
+					p.openInventory(Main.inventorySelector());
+					return;
+				}
+			}
+
+			if (e.getInventory().getName() == Main.inventorySelector().getName()) {
+				e.setCancelled(true);
+
+				ItemStack clicked = e.getCurrentItem();
+
+				if (clicked == null) {
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_HELMET) {
+					p.openInventory(Main.helmetSelectorInventory());
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_CHESTPLATE) {
+					p.openInventory(Main.chestplateInventory());
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_LEGGINGS) {
+					p.openInventory(Main.leggingsInventory());
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_BOOTS) {
+					p.openInventory(Main.bootsInventory());
+					return;
+				}
+
+				else return;
+			}
+
+			if (e.getInventory().getName() == Main.helmetInventory().getName()) {
 				e.setCancelled(true);
 
 				ItemStack clicked = e.getCurrentItem();
@@ -31,44 +96,226 @@ public class InventoryClick implements Listener {
 
 				if (clicked.getType() == Material.LEATHER_HELMET) {
 					p.getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
-					p.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
-					p.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
-					p.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));
-					p.sendMessage(ChatColor.GREEN + "You selected the leather set!");
+					p.closeInventory();
+					return;
 				}
 
 				if (clicked.getType() == Material.GOLD_HELMET) {
 					p.getInventory().setHelmet(new ItemStack(Material.GOLD_HELMET));
-					p.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
-					p.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
-					p.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS));
-					p.sendMessage(ChatColor.GREEN + "You selected the gold set!");
+					p.closeInventory();
+					return;
 				}
 
 				if (clicked.getType() == Material.IRON_HELMET) {
 					p.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
-					p.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
-					p.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-					p.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
-					p.sendMessage(ChatColor.GREEN + "You selected the iron set!");
+					p.closeInventory();
+					return;
 				}
 
 				if (clicked.getType() == Material.DIAMOND_HELMET) {
 					p.getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
-					p.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
-					p.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
-					p.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
-					p.sendMessage(ChatColor.GREEN + "You selected the diamond set!");
+					p.closeInventory();
+					return;
 				}
 
 				if (clicked.getType() == Material.CHAINMAIL_HELMET) {
 					p.getInventory().setHelmet(new ItemStack(Material.CHAINMAIL_HELMET));
-					p.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-					p.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
-					p.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
-					p.sendMessage(ChatColor.GREEN + "You selected the chainmail set!");
+					p.closeInventory();
+					return;
 				}
-			} else return;
+
+				else return;
+			}
+
+			if (e.getInventory().getName() == Main.chestplateInventory().getName()) {
+				e.setCancelled(true);
+
+				ItemStack clicked = e.getCurrentItem();
+
+				if (clicked == null) {
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_CHESTPLATE) {
+					p.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.GOLD_CHESTPLATE) {
+					p.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.IRON_CHESTPLATE) {
+					p.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.DIAMOND_CHESTPLATE) {
+					p.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.CHAINMAIL_HELMET) {
+					p.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
+					p.closeInventory();
+					return;
+				}
+
+				else return;
+			}
+
+			if (e.getInventory().getName() == Main.leggingsInventory().getName()) {
+				e.setCancelled(true);
+
+				ItemStack clicked = e.getCurrentItem();
+
+				if (clicked == null) {
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_LEGGINGS) {
+					p.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.GOLD_LEGGINGS) {
+					p.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.IRON_LEGGINGS) {
+					p.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.DIAMOND_LEGGINGS) {
+					p.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.CHAINMAIL_LEGGINGS) {
+					p.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
+					p.closeInventory();
+					return;
+				}
+
+				else return;
+			}
+
+			if (e.getInventory().getName() == Main.bootsInventory().getName()) {
+				e.setCancelled(true);
+
+				ItemStack clicked = e.getCurrentItem();
+
+				if (clicked == null) {
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_BOOTS) {
+					p.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.GOLD_BOOTS) {
+					p.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.IRON_BOOTS) {
+					p.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.DIAMOND_BOOTS) {
+					p.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.CHAINMAIL_BOOTS) {
+					p.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
+					p.closeInventory();
+					return;
+				}
+
+				else return;
+			}
+
+			if (e.getInventory().getName() == Main.hatsInventory().getName()) {
+				e.setCancelled(true);
+
+				ItemStack clicked = e.getCurrentItem();
+
+				if (clicked == null) {
+					return;
+				}
+
+				if (clicked.getType() == Material.GRASS) {
+					p.getInventory().setHelmet(new ItemStack(Material.GRASS));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.LOG) {
+					p.getInventory().setHelmet(new ItemStack(Material.LOG));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.DIAMOND_BLOCK) {
+					p.getInventory().setHelmet(new ItemStack(Material.DIAMOND_BLOCK));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.REDSTONE_BLOCK) {
+					p.getInventory().setHelmet(new ItemStack(Material.REDSTONE_BLOCK));
+					p.closeInventory();
+					return;
+				}
+
+				if (clicked.getType() == Material.TNT) {
+					p.getInventory().setHelmet(new ItemStack(Material.TNT));
+					p.closeInventory();
+					return;
+				}
+			}
+
+			if (e.getInventory().getName() == Main.helmetSelectorInventory().getName()) {
+				e.setCancelled(true);
+
+				ItemStack clicked = e.getCurrentItem();
+
+				if (clicked == null) {
+					return;
+				}
+
+				if (clicked.getType() == Material.GRASS) {
+					p.openInventory(Main.hatsInventory());
+					return;
+				}
+
+				if (clicked.getType() == Material.LEATHER_HELMET) {
+					p.openInventory(Main.helmetInventory());
+					return;
+				}
+			}
+
+			if (e.getSlotType() == SlotType.ARMOR) {
+				e.setCancelled(true);
+			}
 		}
 	}
 }

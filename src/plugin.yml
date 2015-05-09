@@ -1,5 +1,5 @@
 name: Wardrobe
-version: 1.0.0
+version: 1.0.2
 author: GiansCode
 main: com.gianscode.wardrobe.Main
 description: Change how you look ingame
@@ -13,8 +13,20 @@ commands:
         usage: /<command>
         aliases: [ra, cleararmor, removearmour, cleararmour, ca]
         description: Removes all the armor you have on
+    removehelmet:
+        usage: /<command>
+        description: Removes any helmet (or hat) you have on
+    removechestplate:
+        usage: /<command>
+        description: Removes any chestplate you have on
+    removeleggings:
+        usage: /<command>
+        description: Removes any pair of leggings you have on
+    removeboots:
+        usage: /<command>
+        description: Removes any pair of boots you have on
     
 permissions:
     wardrobe.use:
         default: op
-        description: Use the wardrobe
+        description: Use the wardrobe and all commands

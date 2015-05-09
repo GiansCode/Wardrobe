@@ -26,9 +26,9 @@ public class OpenMenu implements CommandExecutor {
 				return true;
 			}
 
-			p.openInventory(Main.getInventory());
-			p.sendMessage(ChatColor.GOLD + "Opening the wardrobe selector...");
+			p.openInventory(Main.selectorInventory());
 			p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
+			p.sendMessage(ChatColor.GOLD + "Opening the armor selector...");
 		}
 		return true;
 	}

@@ -17,16 +17,16 @@ public class PlayerInteract implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player p = (Player) e.getPlayer();
 
-		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (e.getItem().getType() == Material.BOOK) {
-				if (!(p.hasPermission("wardrobe.use"))) {
-					return;
-				}
+		if (!(p.hasPermission("wardrobe.use"))) {
 
-				p.openInventory(Main.getInventory());
-				p.sendMessage(ChatColor.GOLD + "Opening the wardrobe selector...");
-				p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
-			} else return;
-		} else return;
+		} else {
+			if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+				if (e.getItem().getType() == Material.BOOK) {
+					p.openInventory(Main.selectorInventory());
+					p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
+					p.sendMessage(ChatColor.GOLD + "Opening the armor selector...");
+				} else return;
+			}
+		}
 	}
 }
